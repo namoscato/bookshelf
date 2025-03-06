@@ -1,4 +1,7 @@
-import { RoughSVG } from "react-rough-fiber";
+import * as ReactRoughFiber from "react-rough-fiber";
+
+// @ts-expect-error untyped default property handles server context: https://github.com/Bowen7/react-rough-fiber/issues/10
+const RoughSVG = ReactRoughFiber.default?.RoughSVG || ReactRoughFiber.RoughSVG;
 
 export function Welcome() {
   return (
