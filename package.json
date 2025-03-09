@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "TZ=America/New_York react-router build",
-    "dev": "TZ=America/New_York react-router dev",
+    "build": "TZ=UTC react-router build",
+    "dev": "TZ=UTC react-router dev",
     "typecheck": "react-router typegen && tsc",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write ."

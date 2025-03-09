@@ -12,8 +12,6 @@ interface Props {
 export function Bookshelf({ data, config }: Props) {
   const bookWidth = (config.width - 2 * config.padding) / data.maxTime;
 
-  console.log(data);
-
   const maxBookHeight = config.bookHeight[1];
   const height =
     (1 + data.days.length) * config.padding + data.days.length * maxBookHeight;
