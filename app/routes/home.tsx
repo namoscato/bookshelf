@@ -1,13 +1,26 @@
+import type { BookshelfData } from "~/books/utils/types";
+import { loadBookshelfData } from "../books/loadBookData";
+import { Bookshelf } from "../components/Bookshelf";
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Giovanni's Bookshelf" },
+    {
+      name: "description",
+      content: "Visualizing a week of reading with Giovanni",
+    },
   ];
 }
 
-export default function Home() {
-  return <Welcome />;
+export async function loader(): Promise<BookshelfData> {
+  return await loadBookshelfData({
+    width: 1500,
+    padding: 16,
+    bookHeight: [50, 100],
+  });
+}
+
+export default function Home({ loaderData }: Route.ComponentProps) {
+  return <Bookshelf data={loaderData} />;
 }
