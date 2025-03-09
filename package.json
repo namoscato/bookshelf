@@ -3,9 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build",
-    "dev": "react-router dev",
-    "start": "react-router-serve ./build/server/index.js",
+    "build": "TZ=America/New_York react-router build",
+    "dev": "TZ=America/New_York react-router dev",
     "typecheck": "react-router typegen && tsc",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write ."
