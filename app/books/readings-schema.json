@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Reading Schedule",
+  "description": "A collection of scheduled book readings with dates and book identifiers",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["date", "book"],
+    "properties": {
+      "date": {
+        "type": "string",
+        "format": "date-time",
+        "description": "The date and time of the reading in ISO 8601 format with timezone offset"
+      },
+      "book": {
+        "type": "string",
+        "description": "The identifier/slug of the book to be read",
+        "pattern": "^[a-z0-9-]+"
+      }
+    },
+    "additionalProperties": false
+  }
+}

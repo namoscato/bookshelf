@@ -1,0 +1,10 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "cSpell.words": ["carle", "incredibles", "isbot"],
+  "json.schemas": [
+    {
+      "fileMatch": ["app/books/readings.json"],
+      "url": "./app/books/readings-schema.json"
+    }
+  ]
+}
