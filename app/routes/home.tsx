@@ -1,4 +1,5 @@
-import { loadBookshelfData, type BookshelfData } from "../books/loadBookData";
+import type { BookshelfData } from "~/books/utils/types";
+import { loadBookshelfData } from "../books/loadBookData";
 import { Bookshelf } from "../components/Bookshelf";
 import type { Route } from "./+types/home";
 
