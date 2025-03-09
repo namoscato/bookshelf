@@ -1,24 +1,10 @@
 import readings from "./readings.json";
+import { Bookshelf } from "./utils/Bookshelf";
+import type { BookshelfConfig, BookshelfData } from "./utils/types";
 
-export interface BookData {
-  days: Day[];
-  maxTime: number;
-}
-
-interface Day {
-  date: Date;
-  readings: Reading[];
-}
-
-interface Reading {
-  /** relative minutes since earliest reading */
-  time: number;
-  book: string;
-}
-
-export async function loadBookData(): Promise<BookData> {
-  const days: Day[] = [];
-
+export async function loadBookshelfData(
+  config: BookshelfConfig,
+): Promise<BookshelfData> {
   const { earliestTime, latestTime } = readings.reduce<{
     earliestTime: number;
     latestTime: number;
@@ -34,45 +20,11 @@ export async function loadBookData(): Promise<BookData> {
     { earliestTime: Infinity, latestTime: 0 },
   );
 
-  const earliestHour = new Date(earliestTime);
-
-  let dayReadings: Reading[] = [];
-  let currentDay = new Date(
-    new Date(readings[0].date).setHours(
-      earliestHour.getHours(),
-      earliestHour.getMinutes(),
-      earliestHour.getSeconds(),
-      earliestHour.getMilliseconds(),
-    ),
-  );
+  const bookshelf = new Bookshelf({ earliestTime, latestTime, config });
 
   readings.forEach((reading) => {
-    const date = new Date(reading.date);
-
-    if (date.toDateString() !== currentDay.toDateString()) {
-      days.push({ date: currentDay, readings: dayReadings });
-
-      currentDay = new Date(
-        new Date(date).setHours(
-          earliestHour.getHours(),
-          earliestHour.getMinutes(),
-          earliestHour.getSeconds(),
-          earliestHour.getMilliseconds(),
-        ),
-      );
-      dayReadings = [];
-    }
-
-    dayReadings.push({
-      time: (date.getTime() - currentDay.getTime()) / 1000 / 60,
-      book: reading.book,
-    });
+    bookshelf.addReading(reading);
   });
 
-  days.push({ date: currentDay, readings: dayReadings });
-
-  return {
-    days,
-    maxTime: (latestTime - earliestTime) / 1000 / 60,
-  };
+  return bookshelf.toJSON();
 }
